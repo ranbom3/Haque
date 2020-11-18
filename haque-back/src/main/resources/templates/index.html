@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>我的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="yinqi" />
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favorite.ico}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/index-style.min.css}" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<header class="lyear-header text-center"
+        th:style="|background-image:url(@{/images/left-bg.webp});|"
+        th:fragment="header">
+  <div class="lyear-header-container">
+    <div class="lyear-mask"></div>
+    <h1 class="lyear-blogger pt-lg-4 mb-0"><a href="index.html">Ranbom-Haque</a></h1>
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="lyear-hamburger">
+          <div class="hamburger-inner"></div>
+        </div>
+      </a>
+
+      <div id="navigation" class="collapse navbar-collapse flex-column">
+        <div class="profile-section pt-3 pt-lg-0">
+
+          <img class="profile-image mb-3 rounded-circle mx-auto" th:src="@{/images/lyear.webp}" width="240" height="240" alt="笔下光年" >
+
+          <div class="lyear-sentence mb-3">
+            Hold on the love<br>
+            Along the moon river, I plant a tree<br>
+            Quite a few flowers appear in the tree<br>
+            Unbelievable, I'll show my love to you<br>
+            Every night I stare at the moon, missing your beautiful face<br>
+          </div>
+          <hr>
+        </div>
+
+        <ul class="navbar-nav flex-column text-center">
+          <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}">首页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/about}">关于我</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/admin_page}">dashboard</a>
+          </li>
+        </ul>
+
+        <div class="my-2 my-md-3">
+          <form class="lyear-search-form form-inline justify-content-center pt-3"
+                method="get" th:action="@{/query}" id="query_form">
+            <input type="text" id="query" name="query" class="form-control mr-md-1" placeholder="搜索关键词" />
+            <a onclick="document:query_form.submit()"><i class="fa fa-search"></i></a>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<div class="lyear-wrapper">
+  <section class="mt-5 pb-5">
+    <div class="container">
+
+      <div class="row">
+        <!-- 文章列表 -->
+        <div class="col-xl-8">
+          <span th:if="${indexMsg}!=null">
+            <h1 th:text="${indexMsg}"></h1>
+          </span>
+
+          <article class="lyear-arc" th:each="map:${articlesList}">
+            <div class="arc-header">
+              <h2 class="arc-title">
+                <a th:href="@{|/article/detail/${map.article.id}|}" th:text="${map.article.title}">
+                  文章标题
+                </a>
+              </h2>
+              <ul class="arc-meta">
+                <i class="fa fa-calendar-o"></i>
+                <li th:text="${#dates.format(map.article.createTime, 'yyyy-MM-dd HH:mm:ss')}">
+                  2019-09-25 09:21
+                </li>
+                <i class="fa fa-tags" th:if="${map.tags!=null}"></i>
+                <span th:each="tag:${map.tags}">(<a href="#" th:text="${tag.tagName}">标签名字</a>)</span>
+              </ul>
+            </div>
+
+            <div class="arc-synopsis">
+              <p th:text="${map.articleResume}">
+                文章摘要
+              </p>
+            </div>
+          </article>
+
+          <!-- 分页 -->
+          <nav th:fragment="pagination">
+            <ul class="pagination" >
+              <li class="page-item"><a class="page-link" th:href="@{${page.path}(current = ${page.current - 1})}">上一页</a></li>
+              <li th:class="|page-item ${page.current == i ? 'active' : ''}|"
+                  th:each="i:${#numbers.sequence(page.from, page.to)}">
+                <a class="page-link" th:href="@{${page.path}(current=${i})}" th:text="${i}">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" th:href="@{${page.path}(current = ${page.current + 1})}">下一页</a></li>
+            </ul>
+          </nav>
+          <!-- 分页 end -->
+
+
+        </div>
+        <!-- 内容 end -->
+
+        <!-- 侧边栏 -->
+        <div class="col-xl-4" th:fragment="sidebar">
+          <div class="lyear-sidebar">
+            <!-- 最新文章 -->
+            <aside class="widget widget-hot-posts">
+              <div class="widget-title">最新文章</div>
+              <ul th:each="latestArticle:${latestArticlesList}">
+                <li>
+                  <a th:href="@{|/article/detail/${latestArticle.id}|}"
+                     th:text="${latestArticle.title}">最新文章的标题</a>
+                  <span th:text="${#dates.format(latestArticle.createTime, 'yyyy-MM-dd HH:mm:ss')}">2019-09-25 10:05</span>
+                </li>
+              </ul>
+            </aside>
+
+            <!-- 归档 -->
+            <aside class="widget">
+              <div class="widget-title">归档</div>
+              <ul th:each="archive:${archives}">
+                <li><a href="#"> <span th:text="${archive.dates}">2019 三月</span>
+                </a>
+                  (<span th:text="${archive.count}">40</span>）
+                </li>
+              </ul>
+            </aside>
+
+            <!-- 标签 -->
+            <aside class="widget widget-tag-cloud">
+              <div class="widget-title">标签</div>
+              <div class="tag-cloud">
+                <span th:each="tag:${tagList}">
+                  <a href="#" class="badge badge-success" th:text="${tag.tagName}">标签名字</a>
+                </span>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <!-- 侧边栏 end -->
+      </div>
+
+    </div>
+    <!-- end container -->
+  </section>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/index-main.min.js}"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

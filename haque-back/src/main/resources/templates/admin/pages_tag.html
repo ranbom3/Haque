@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="keywords" content="Haque后台管理系统">
+    <meta name="description" content="Haque后台管理系统">
+    <meta name="author" content="yinq">
+    <title>标签管理</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favorite.ico}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!--标签插件-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.min.css}">
+</head>
+
+<body>
+
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar" th:replace="admin/admin_page::sidebar"></aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header" th:replace="admin/admin_page::header"></header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+
+            <div class="container-fluid p-t-15">
+
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <label>已有标签： </label>
+                                <div class="custom-control custom-control-inline" th:each="tag:${tags}">
+                                    <label class="custom-control-label" th:text="${tag.tagName}">足球</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+
+                                <form method="post" class="row" th:action="@{/admin/pages_add_tag}">
+                                    <!--                  隐藏此input，仅用于穿id给后台-->
+<!--                                    <input id = "quser_id" name = "quser_id" type="hidden" th:value="${quser.id}">-->
+
+                                    <div class="form-group col-md-12">
+                                        <label for="tag_name">新增标签</label>
+                                        <input type="text" class="form-control" id="tag_name" name="tag_name" value="" placeholder="请输入标签名字" />
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-primary ajax-post" target-form="add-form">确 定</button>
+                                        <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.perfect-scrollbar/1.5.0/perfect-scrollbar.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<!--标签插件-->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+<script type="text/javascript" th:src="@{/js/main.min.js}"></script>
+
+</body>
+</html>

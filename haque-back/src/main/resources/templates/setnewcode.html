@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>设置新密码</title>
+</head>
+<body>
+<form th:action="@{/forgetAndUpdate}" method="post">
+    用户名：<input type="text" name="username" id="username" readonly th:value="${quser.username}"/><br>
+    新密码：<input type="password" name="password" id="pwd1" placeholder="请输入新密码" required/><br>
+    确认新密码：<input type="password" name="password2" id="pwd2" placeholder="请再次输入新密码"  required onkeyup="setNewCode()">
+    <button type="submit" id="submit">提交</button>
+    <span id="tishi"></span>
+</form>
+</body>
+<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+<script>
+    function setNewCode() {
+        var password = $('#pwd1').val();
+        var password2 = $('#pwd2').val();
+        console.log(password);
+        console.log(password2);
+        if (password != password2) {
+            console.log("密码不一致")
+            document.getElementById("tishi").innerHTML="<font color='red'>两次密码不相同</font>";
+            document.getElementById("submit").disabled = true;
+        }else {
+            document.getElementById("tishi").innerHTML="<font color='green'>两次密码相同</font>";
+            document.getElementById("submit").disabled = false;
+        }
+    }
+</script>
+</html>

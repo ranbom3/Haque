@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>关于我</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="yinqi" />
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favorite.ico}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index-style.min.css}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<header class="lyear-header text-center"
+        th:style="|background-image:url(@{/images/left-bg.webp});|"
+        th:fragment="header">
+    <div class="lyear-header-container">
+        <div class="lyear-mask"></div>
+        <h1 class="lyear-blogger pt-lg-4 mb-0"><a href="index.html">Ranbom-Haque</a></h1>
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="lyear-hamburger">
+                    <div class="hamburger-inner"></div>
+                </div>
+            </a>
+
+            <div id="navigation" class="collapse navbar-collapse flex-column">
+                <div class="profile-section pt-3 pt-lg-0">
+
+                    <img class="profile-image mb-3 rounded-circle mx-auto" th:src="@{/images/lyear.webp}" width="240" height="240" alt="笔下光年" >
+
+                    <div class="lyear-sentence mb-3">
+                        Hold on the love<br>
+                        Along the moon river, I plant a tree<br>
+                        Quite a few flowers appear in the tree<br>
+                        Unbelievable, I'll show my love to you<br>
+                        Every night I stare at the moon, missing your beautiful face<br>
+                    </div>
+                    <hr>
+                </div>
+
+                <ul class="navbar-nav flex-column text-center">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/index}">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/admin_page}">dashboard</a>
+                    </li>
+                </ul>
+
+                <div class="my-2 my-md-3">
+                    <form class="lyear-search-form form-inline justify-content-center pt-3">
+                        <input type="email" id="semail" name="semail1" class="form-control mr-md-1" placeholder="搜索关键词" />
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="lyear-wrapper">
+    <section class="mt-5 pb-5">
+        <div class="container">
+
+            <div class="row">
+                <!-- 文章列表 -->
+                <div class="col-12">
+
+                    <article class="lyear-arc">
+                        <div class="lyear-arc-detail">
+                            <h1 class="text-center mt-0 mb-3 pb-3">关于我</h1>
+                        </div>
+                    </article>
+
+                </div>
+                <!-- 内容 end -->
+
+            </div>
+
+        </div>
+        <!-- end container -->
+    </section>
+</div>
+
+<script type="text/javascript" th:src="@{/js/index-main.min.js}"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

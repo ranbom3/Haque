@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ranbom.haque.dao.QueryMapper">
+
+    <sql id="selectFields">
+        id, quser_id, title, content, markdown, create_time, status
+    </sql>
+
+    <select id="selectArticlesByQuery" resultType="com.ranbom.haque.entity.Article">
+        select <include refid="selectFields"/>
+        from article
+        where status != 1
+        and quser_id = #{quserId}
+        and article.content like concat('%',#{query},'%')
+        or article.title like concat('%',#{query},'%')
+        order by create_time desc
+        limit #{limit} offset #{offset};
+    </select>
+
+</mapper>

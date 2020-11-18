@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ranbom.haque.dao.ImageMapper">
+
+    <sql id="selectFields">
+        id, img_url, status
+    </sql>
+
+    <sql id="insertFields">
+        img_url, status
+    </sql>
+
+    <select id="selectAllImages" resultType="Image">
+        select <include refid="selectFields"></include>
+        from img
+        where status = 0
+    </select>
+
+    <insert id="insertImg" parameterType="Image">
+        insert into img (<include refid="insertFields"></include>)
+        values (#{imgUrl}, 0)
+    </insert>
+    
+    <update id="deleteImg">
+        update img set status = 1
+        where img_url = #{imgUrl}
+    </update>
+
+
+</mapper>

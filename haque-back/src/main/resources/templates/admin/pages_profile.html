@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="keywords" content="Haque后台管理系统">
+    <meta name="description" content="Haque后台管理系统">
+    <meta name="author" content="yinq">
+    <title>个人信息</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.min.css}">
+</head>
+
+<body>
+
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar" th:replace="/admin/admin_page::sidebar"></aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header" th:replace="/admin/admin_page::header"></header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+
+            <div class="container-fluid p-t-15">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="media">
+                                    <img id="quser_avatar"
+                                         th:src="@{|/images/gallery/${quser.avatar}|}"
+                                         width="240" height="240" alt="..." class="img-avatar mr-3">
+<!--                                    <div class="media-body">-->
+<!--                                        <button class="btn btn-default">修改头像</button>-->
+<!--                                        <p class="mt-1 mb-0">选择一张你喜欢的图片，裁剪后会自动生成264x264大小，上传图片大小不能超过2M。</p>-->
+<!--                                    </div>-->
+                                    <form method="post" enctype="multipart/form-data" th:action="@{/admin/upload_img}">
+                                        <a class="btn btn-primary m-r-5" id="add-pic-btn" href="#!" title="点击上传" οnclick="addImage()">上传头像</a>
+                                        <input type="file" id="file" name="file" style="display:none;" onchange="upload()">
+                                    </form>
+                                </div>
+                                <hr>
+                                <form method="" action="#!" class="site-form">
+                                    <div class="form-group">
+                                        <label for="username">用户名</label>
+                                        <input type="text" class="form-control" name="username" id="username" th:value="${quser.username}" disabled="disabled">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nickname">昵称</label>
+                                        <input type="text" class="form-control" name="nickname" id="nickname" placeholder="输入您的昵称" th:value="${quser.username}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">邮箱</label>
+                                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="请输入正确的邮箱地址" th:value="${quser.email}">
+                                        <small id="emailHelp" class="form-text text-muted">请保证您填写的邮箱地址是正确的。</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="remark">简介</label>
+                                        <textarea class="form-control" name="remark" id="remark" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">保存</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/perfect-scrollbar.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.cookie.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.min.js}"></script>
+
+<script>
+    $("#add-pic-btn").click(function(){
+        document.getElementById("file").click();
+    });
+</script>
+
+<script>
+    function upload() {
+        const CONTEXT_PATH = "/haque/admin";
+        const IMG_PATH = "/haque/images/gallery/";
+        const formData = new FormData();
+        formData.append('file', document.getElementById('file').files[0]);
+        $.ajax({
+            url: CONTEXT_PATH + "/upload_avatar",
+            data: formData,
+            type: "Post",
+            dataType: "json",
+            cache: false,//上传文件无需缓存
+            processData: false,//用于对data参数进行序列化处理 这里必须false
+            contentType: false, //必须
+            success: function (result) {
+                if (result.code == 0) {
+                    alert("上传成功");
+                    // 更改头像的预览图片
+                    $("#quser_avatar").attr('src', IMG_PATH + result.quser_avatar)
+                    // 菜单栏的头像图片
+                    $("#menu_avatar").attr('src', IMG_PATH + result.quser_avatar)
+                } else {
+                    alert(result.msg);
+                }
+            }, error: function (ex) {
+                console.warn(ex)
+            }
+        })
+
+
+    }
+</script>
+
+</body>
+</html>

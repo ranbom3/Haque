@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ranbom.haque.dao.QuserMapper">
+
+    <resultMap id="BaseResultMap" type="Quser">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="avatar" property="avatar"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <sql id="selectFields">
+        id, username, password, email, avatar, status, code
+    </sql>
+
+    <sql id="insertFields">
+        username, password, email, avatar, status, code
+    </sql>
+
+    <select id="loadUserByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="selectFields"></include>
+        from quser where username = #{username} and status = 0
+    </select>
+
+    <insert id="saveToDb" parameterType="Quser">
+        insert into quser (<include refid="insertFields"></include>)
+        values (#{username}, #{password}, #{email}, #{avatar}, #{status}, #{code});
+    </insert>
+
+    <!--根据激活码code查询用户-->
+    <select id="checkCode" parameterType="String" resultType="Quser">
+        select * from quser where code = #{code}
+    </select>
+
+    <!--激活账户，修改用户状态-->
+    <update id="updateUserStatus" parameterType="Quser">
+        update quser
+        set status=0,
+            code=null
+        where id = #{id};
+    </update>
+
+    <update id="updateUserAvatar">
+        update quser
+        set avatar = #{imgUrl}
+        where id = #{id}
+    </update>
+
+    <select id="selectUserById" resultType="Quser">
+        select <include refid="selectFields"></include>
+        from quser
+        where id = #{id}
+    </select>
+
+    <update id="updateUserPassword">
+        update quser
+        set password = #{password}
+        where username = #{username}
+    </update>
+
+    <update id="updateUserCode" parameterType="Quser">
+        update quser set code = #{code} where username = #{username}
+    </update>
+
+</mapper>

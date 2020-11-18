@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title th:text="${article.title}">文章详情页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="yinqi" />
+  <link rel="stylesheet" type="text/css" th:href="@{/js/highlight/styles/agate.css}" />
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favorite.ico}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/index-style.min.css}" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<header th:replace="index::header"></header>
+
+<div class="lyear-wrapper">
+  <section class="mt-5 pb-5">
+    <div class="container">
+
+      <div class="row">
+        <!-- 文章阅读 -->
+        <div class="col-xl-8">
+          <article class="lyear-arc">
+            <div class="arc-header">
+              <h2 class="arc-title" th:text="${article.title}"><a href="#">文章标题</a></h2>
+              <ul class="arc-meta">
+                <i class="fa fa-calendar-o"></i>
+                <li th:text="${#dates.format(article.createTime, 'yyyy-MM-dd HH:mm:ss')}">
+                  2019-09-25 09:21
+                </li>
+                <li><i class="fa fa-comments-o"></i> <a href="#">3 评论</a></li>
+                <li>uv:<a href="#" th:text="${uv}"></a></li>
+                <li>pv:<a href="#" th:text="${pv}"></a></li>
+              </ul>
+            </div>
+
+            <div class="lyear-arc-detail">
+                <div  th:utext="${article.content}"></div>
+
+              <div class="mt-5">
+                <h6>Tags:</h6>
+                <div class="tag-cloud">
+                  <i class="fa fa-tags" th:if="${tags!=null}"></i>
+                  <span th:each="tag:${tags}"><a href="#" class="badge badge-light" th:text="${tag.tagName}">标签名字</a></span>
+                </div>
+              </div>
+
+            </div>
+
+          </article>
+        </div>
+        <!-- 内容 end -->
+
+      </div>
+
+    </div>
+    <!-- end container -->
+  </section>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/highlight/highlight.pack.js}"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript" th:src="@{/js/index-main.min.js}"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

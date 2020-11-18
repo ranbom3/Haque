@@ -1,0 +1,126 @@
+.daoUpload {
+			width: 100%;
+			height: 100%;
+			border: 2px dashed gray;
+		}
+		.daoUpload.over {
+			width: 100%;
+			height: 100%;
+			border: 2px dashed red;
+		}
+		.daoUpload .fileOption{
+			width: 100%;
+			height: 45px;
+			border-bottom: 1px solid #ccc;
+			text-align: right;
+			line-height: 45px;
+		}
+		.daoUpload .fileOption .size{
+			float: left;
+			width: 59%;
+			height: 100%;
+			display: inline-block;
+			text-align: left;
+		}
+		.daoUpload .fileOption .option{
+			width: 37%;
+			float: right;
+			margin-right: 15px;
+			height: 100%;
+			display: inline-block;
+		}
+		.daoUpload .fileOption .option .add{
+			display: inline-block;
+			background-color: #00b7ee;
+			color: #fff;
+			height: 30px;
+			width: 86px;
+			line-height: 30px;
+			text-align: center;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-right: 5px;
+		}
+		.daoUpload .fileOption .option .add:hover, .daoUpload .fileOption .option .uploads:hover{
+			background-color: #0392bd;
+		}
+		.daoUpload .fileOption .option .uploads{
+			display: inline-block;
+			background-color: #00b7ee;
+			color: #fff;
+			height: 30px;
+			width: 86px;
+			line-height: 30px;
+			text-align: center;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		.daoUpload .fileOption .file_size{
+			padding-left: 15px;
+			font-size: 14px;
+		}
+		.daoUpload .fileList{
+			width: 100%;
+			height: auto;
+			overflow: auto;
+		}
+		.daoUpload .fileList img{
+			width: 100%;
+			height: 100%;
+		}
+		.daoUpload .fileList ul{
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			padding-left: 15px;
+			padding-top: 15px;
+		}
+		.daoUpload .fileList li{
+			width: 110px;
+			height: 110px;
+			float: left;
+			list-style: none;
+			margin-right: 15px;
+			margin-bottom: 15px;
+			position: relative;
+			cursor: pointer;
+		}
+		.daoUpload .fileList li .del{
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			display: none;
+			width: 100%;
+			height: 30px;
+			text-align: center;
+			background-color: rgba(0,0,0,0.5);
+			color: #fff;
+			line-height: 30px;
+		}
+		.daoUpload .fileList li .suff{
+			display: block;
+			width: 108px;
+			height: 108px;
+			text-align: center;
+			border: 1px solid #ccc;
+			line-height: 90px;
+			font-size: 27px;
+			font-weight: bold;
+			color: #565555;
+		}
+		.daoUpload .fileList li .speed{
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			display: inline-block;
+			width: 100%;
+			height: 30px;
+			text-align: center;
+			background-color: rgba(0,0,0,0.5);
+			color: #fff;
+			line-height: 30px;
+		}
+		.file_size .reup{
+			color: red;
+			cursor: pointer;
+		}

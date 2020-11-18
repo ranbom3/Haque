@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ranbom.haque.dao.TagMapper">
+
+    <sql id="selectFields">
+        id, tag_name, is_deleted
+    </sql>
+
+    <sql id="insertFields">
+        tag_name, is_deleted
+    </sql>
+
+    <insert id="insertTag" parameterType="com.ranbom.haque.entity.Tag">
+        insert into tag(<include refid="insertFields"/>)
+        values (#{tagName}, #{deleted})
+    </insert>
+
+    <insert id="insertArticleTags">
+        insert into article_tag(article_id, tag_id)
+        values (#{articleId}, #{tagId})
+    </insert>
+
+    <select id="selectTags" resultType="com.ranbom.haque.entity.Tag">
+        select <include refid="selectFields"/>
+        from tag
+    </select>
+
+</mapper>
